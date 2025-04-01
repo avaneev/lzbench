@@ -107,13 +107,6 @@ BUGGY_CODECS  = bench/buggy_codecs.o
 LZBENCH_FILES = $(LZ_CODECS) $(BUGGY_CODECS) bench/lzbench.o  bench/symmetric_codecs.o bench/misc_codecs.o
 
 
-ifeq "$(DONT_BUILD_BLOSCLZ)" "1"
-	DEFINES += -DBENCH_REMOVE_BLOSCLZ
-else
-    MISC_FILES += lz/blosclz/blosc/blosclz.o lz/blosclz/blosc/fastcopy.o
-endif
-
-
 ifeq "$(DONT_BUILD_BRIEFLZ)" "1"
 	DEFINES += -DBENCH_REMOVE_BRIEFLZ
 else
@@ -314,13 +307,6 @@ else
     UCL_FILES = lz/ucl/alloc.o lz/ucl/n2b_99.o lz/ucl/n2b_d.o lz/ucl/n2b_ds.o lz/ucl/n2b_to.o lz/ucl/n2d_99.o lz/ucl/n2d_d.o lz/ucl/n2d_ds.o
     UCL_FILES += lz/ucl/n2d_to.o lz/ucl/n2e_99.o lz/ucl/n2e_d.o lz/ucl/n2e_ds.o lz/ucl/n2e_to.o lz/ucl/ucl_crc.o lz/ucl/ucl_init.o
     UCL_FILES += lz/ucl/ucl_ptr.o lz/ucl/ucl_str.o lz/ucl/ucl_util.o
-endif
-
-
-ifeq "$(DONT_BUILD_XPACK)" "1"
-	DEFINES += -DBENCH_REMOVE_XPACK
-else
-	XPACK_FILES = lz/xpack/lib/x86_cpu_features.o lz/xpack/lib/xpack_common.o lz/xpack/lib/xpack_compress.o lz/xpack/lib/xpack_decompress.o
 endif
 
 
@@ -531,13 +517,6 @@ else
 endif
 
 
-ifeq "$(DONT_BUILD_SHRINKER)" "1"
-    DEFINES += -DBENCH_REMOVE_SHRINKER
-else
-    BUGGY_FILES += lz/shrinker/shrinker.o
-endif
-
-
 ifeq "$(DONT_BUILD_WFLZ)" "1"
     DEFINES += -DBENCH_REMOVE_WFLZ
 else
@@ -589,7 +568,7 @@ endif # ifneq "$(LIBCUDART)"
 
 MKDIR = mkdir -p
 
-lzbench: $(BUGGY_FILES) $(BUGGY_CC_FILES) $(BUGGY_CXX_FILES) $(CSC_FILES) $(BSC_C_FILES) $(BSC_CXX_FILES) $(BSC_CUDA_FILES) $(BZIP2_FILES) $(BZIP3_FILES) $(KANZI_FILES) $(FASTLZMA2_OBJ) $(ZSTD_FILES) $(LZSSE_FILES) $(LZFSE_FILES) $(XPACK_FILES) $(XZ_FILES) $(LIBLZG_FILES) $(BRIEFLZ_FILES) $(LZF_FILES) $(BROTLI_FILES) $(LZMA_FILES) $(ZLING_FILES) $(QUICKLZ_FILES) $(SNAPPY_FILES) $(ZLIB_FILES) $(ZLIB_NG_FILES) $(LZHAM_FILES) $(LZO_FILES) $(UCL_FILES) $(LZ4_FILES) $(LIZARD_FILES) $(LIBDEFLATE_FILES) $(MISC_FILES) $(NVCOMP_FILES) $(LZBENCH_FILES) $(PPMD_FILES)
+lzbench: $(BUGGY_FILES) $(BUGGY_CC_FILES) $(BUGGY_CXX_FILES) $(CSC_FILES) $(BSC_C_FILES) $(BSC_CXX_FILES) $(BSC_CUDA_FILES) $(BZIP2_FILES) $(BZIP3_FILES) $(KANZI_FILES) $(FASTLZMA2_OBJ) $(ZSTD_FILES) $(LZSSE_FILES) $(LZFSE_FILES) $(XZ_FILES) $(LIBLZG_FILES) $(BRIEFLZ_FILES) $(LZF_FILES) $(BROTLI_FILES) $(LZMA_FILES) $(ZLING_FILES) $(QUICKLZ_FILES) $(SNAPPY_FILES) $(ZLIB_FILES) $(ZLIB_NG_FILES) $(LZHAM_FILES) $(LZO_FILES) $(UCL_FILES) $(LZ4_FILES) $(LIZARD_FILES) $(LIBDEFLATE_FILES) $(MISC_FILES) $(NVCOMP_FILES) $(LZBENCH_FILES) $(PPMD_FILES)
 	$(CXX) $^ -o $@ $(LDFLAGS)
 	@echo Linked GCC_VERSION=$(GCC_VERSION) CLANG_VERSION=$(CLANG_VERSION) COMPILER=$(COMPILER)
 
@@ -652,10 +631,6 @@ $(LZO_FILES): %.o : %.c
 	$(CC) $(CFLAGS) -Ilz $< -c -o $@
 
 $(UCL_FILES): %.o : %.c
-	@$(MKDIR) $(dir $@)
-	$(CC) $(CFLAGS) -Ilz $< -c -o $@
-
-$(XPACK_FILES): %.o : %.c
 	@$(MKDIR) $(dir $@)
 	$(CC) $(CFLAGS) -Ilz $< -c -o $@
 

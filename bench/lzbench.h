@@ -132,7 +132,7 @@ typedef struct
     int first_level;
     int last_level;
     int additional_param;
-    int max_block_size;
+    int unused;
     compress_func compress;
     compress_func decompress;
     init_func init;
@@ -150,10 +150,9 @@ typedef struct
 
 static const compressor_desc_t comp_desc[] =
 {
-     //                                       last_level,     max_block_size,
+     //                                       last_level,       unused,
      // name,       name_version,    first_level,  additional_param,  compress_func,               decompress_func,               init_func,               deinit_func
-    {  "memcpy",    "memcpy",                  0,   0,    0,       0, lzbench_memcpy,              lzbench_memcpy,                NULL,                    NULL },
-    { "blosclz",    "blosclz 2.5.1",           1,   9,    0, 64*1024, lzbench_blosclz_compress,    lzbench_blosclz_decompress,    NULL,                    NULL },
+    { "memcpy",     "memcpy",                  0,   0,    0,       0, lzbench_memcpy,              lzbench_memcpy,                NULL,                    NULL },
     { "brieflz",    "brieflz 1.3.0",           1,   9,    0,       0, lzbench_brieflz_compress,    lzbench_brieflz_decompress,    lzbench_brieflz_init,    lzbench_brieflz_deinit },
     { "brotli",     "brotli 1.1.0",            0,  11,    0,       0, lzbench_brotli_compress,     lzbench_brotli_decompress,     NULL,                    NULL },
     { "brotli22",   "brotli 1.1.0 -d22",       0,  11,   22,       0, lzbench_brotli_compress,     lzbench_brotli_decompress,     NULL,                    NULL },
@@ -222,7 +221,6 @@ static const compressor_desc_t comp_desc[] =
     { "pithy",      "pithy 2011-12-24",        0,   9,    0,       0, lzbench_pithy_compress,      lzbench_pithy_decompress,      NULL,                    NULL }, // decompression error (returns 0)
     { "ppmd8",      "ppmd8 24.09",             1,   9,    0,       0, lzbench_ppmd_compress,       lzbench_ppmd_decompress,       NULL,                    NULL },
     { "quicklz",    "quicklz 1.5.0",           1,   3,    0,       0, lzbench_quicklz_compress,    lzbench_quicklz_decompress,    NULL,                    NULL },
-    { "shrinker",   "shrinker 0.1",            0,   0,    0, 128<<20, lzbench_shrinker_compress,   lzbench_shrinker_decompress,   NULL,                    NULL },
     { "slz_deflate","slz_deflate 1.2.1",       1,   3,    2,       0, lzbench_slz_compress,        lzbench_slz_decompress,        NULL,                    NULL },
     { "slz_gzip",   "slz_gzip 1.2.1",          1,   3,    1,       0, lzbench_slz_compress,        lzbench_slz_decompress,        NULL,                    NULL },
     { "slz_zlib",   "slz_zlib 1.2.1",          1,   3,    0,       0, lzbench_slz_compress,        lzbench_slz_decompress,        NULL,                    NULL },
@@ -233,7 +231,6 @@ static const compressor_desc_t comp_desc[] =
     { "ucl_nrv2d",  "ucl_nrv2d 1.03",          1,   9,    0,       0, lzbench_ucl_nrv2d_compress,  lzbench_ucl_nrv2d_decompress,  NULL,                    NULL },
     { "ucl_nrv2e",  "ucl_nrv2e 1.03",          1,   9,    0,       0, lzbench_ucl_nrv2e_compress,  lzbench_ucl_nrv2e_decompress,  NULL,                    NULL },
     { "wflz",       "wflz 2015-09-16",         0,   0,    0,       0, lzbench_wflz_compress,       lzbench_wflz_decompress,       lzbench_wflz_init,       lzbench_wflz_deinit }, // SEGFAULT on decompression with gcc 4.9+ -O3 on Ubuntu
-    { "xpack",      "xpack 2016-06-02",        1,   9,    0,   1<<19, lzbench_xpack_compress,      lzbench_xpack_decompress,      lzbench_xpack_init,      lzbench_xpack_deinit },
     { "xz",         "xz 5.6.3",                0,   9,    0,       0, lzbench_xz_compress,         lzbench_xz_decompress,         NULL,                    NULL },
     { "yalz77",     "yalz77 2015-09-19",       1,  12,    0,       0, lzbench_yalz77_compress,     lzbench_yalz77_decompress,     NULL,                    NULL },
     { "yappy",      "yappy 2014-03-22",        1,  12,    0,       0, lzbench_yappy_compress,      lzbench_yappy_decompress,      lzbench_yappy_init,      NULL },
@@ -264,7 +261,7 @@ static const alias_desc_t alias_desc[] =
               "lzf,0,1/lzfse/lzg,1,4,6,8/lzham,0,1/lzlib,0,3,6,9/lzma,0,2,4,6,9/" \
               "lzo1/lzo1a/lzo1b,1,3,6,9,99,999/lzo1c,1,3,6,9,99,999/lzo1f/lzo1x/lzo1y/lzo1z/lzo2a/" \
               "lzsse2,1,6,12,16/lzsse4,1,6,12,16/lzsse8,1,6,12,16/lzvn/ppmd8,4/quicklz,1,2,3/" \
-              "slz_gzip/snappy/ucl_nrv2b,1,6,9/ucl_nrv2d,1,6,9/ucl_nrv2e,1,6,9/xpack,1,6,9/xz,0,3,6,9/" \
+              "slz_gzip/snappy/ucl_nrv2b,1,6,9/ucl_nrv2d,1,6,9/ucl_nrv2e,1,6,9/" \
               "zlib,1,6,9/zlib-ng,1,6,9/zstd_fast,-5,-3,-1/zstd,1,2,5,8,11,15,18,22" },
     { "OPT",  "Includes compressors that use optimal parsing (slow compression, fast decompression).",
               "memcpy/brotli,6,7,8,9,10,11/fastlzma2,1,2,3,4,5,6,7,8,9,10/kanzi,5,6,7,8,9/lzham,0,1,2,3,4/" \
@@ -274,9 +271,9 @@ static const alias_desc_t alias_desc[] =
     { "SYMMETRIC","Includes compressors with similar compression and decompression speeds.",
                   "memcpy/bsc/bzip2/bzip3/ppmd8" },
     { "MISC",     "Covers miscellaneous compressors.",
-                  "memcpy/blosclz/crush/glza/lzjb/nakamichi/tamp/tornado/zling" },
+                  "memcpy/crush/glza/lzjb/nakamichi/tamp/tornado/zling" },
     { "BUGGY",    "Lists potentially unstable codecs that may cause segmentation faults.",
-                  "memcpy/csc/density/gipfeli/lzmat/lzrw/pithy/shrinker/wflz/yalz77/yappy" }, // these can SEGFAULT
+                  "memcpy/csc/density/gipfeli/lzmat/lzrw/pithy/wflz/yalz77/yappy" }, // these can SEGFAULT
     { "UCL",      "Refers to all UCL compressor variants.",
                   "ucl_nrv2b/ucl_nrv2d/ucl_nrv2e" },
     { "LZO",      "Represents all LZO compressor variants.",

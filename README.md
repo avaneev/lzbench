@@ -52,7 +52,6 @@ For complete building instruction, with troubleshooting refer to [BUILD.md](BUIL
 Supported compressors
 -------------------------
 
- - [blosclz 2.5.1 (from c-blosc-1.21.6)](https://github.com/Blosc/c-blosc)
  - [brieflz 1.3.0](https://github.com/jibsen/brieflz)
  - [brotli 1.1.0](https://github.com/google/brotli)
  - [bsc 3.3.5](https://github.com/IlyaGrebnov/libbsc)
@@ -66,7 +65,7 @@ Supported compressors
  - [libdeflate v1.23](https://github.com/ebiggers/libdeflate)
  - [lizard v2.1](https://github.com/inikep/lizard)
  - [lz4/lz4hc v1.10.0](https://github.com/lz4/lz4)
- - [lzav 4.5](https://github.com/avaneev/lzav)
+ - [lzav 4.15](https://github.com/avaneev/lzav)
  - [lzf 3.6](http://software.schmorp.de/pkg/liblzf.html)
  - [lzfse/lzvn 1.0](https://github.com/lzfse/lzfse)
  - [lzg 1.0.10](https://github.com/mbitsnbites/liblzg)
@@ -84,7 +83,6 @@ Supported compressors
  - [tamp 1.3.1](https://github.com/BrianPugh/tamp)
  - [tornado 0.6a](http://freearc.org)
  - [ucl 1.03](http://www.oberhumer.com/opensource/ucl/)
- - [xpack 2016-06-02](https://github.com/ebiggers/xpack)
  - [xz 5.6.3](https://github.com/tukaani-project/xz)
  - [zlib 1.3.1](http://zlib.net)
  - [zlib-ng 2.2.3](https://github.com/zlib-ng/zlib-ng)
@@ -101,7 +99,6 @@ see the [CompFuzz Results](https://github.com/nemequ/compfuzz/wiki/Results) page
  - [lzmat 1.01 v1.0](https://github.com/nemequ/lzmat): Contains decompression bugs and may cause a segmentation fault when compiled with GCC 4.9+ using -O3 optimization.
  - [lzrw 15-Jul-1991](https://en.wikipedia.org/wiki/LZRW): May trigger a segmentation fault when compiled with GCC 4.9+ using -O3.
  - [pithy 2011-12-24](https://github.com/johnezang/pithy): Contains decompression bugs (returns 0).
- - [shrinker 0.1](https://code.google.com/p/data-shrinker): May cause a segmentation fault when compiled with GCC 4.9+ using -O3.
  - [wflz 2015-09-16](https://github.com/ShaneWF/wflz): May result in a segmentation fault when compiled with GCC 4.9+ using -O3.
  - [yalz77 2022-07-06](https://github.com/ivan-tkatchev/yalz77): A segmentation fault was encountered with GCC 13.3.0 on a 32-bit ARM (arm-linux-gnueabi) target.
  - [yappy 2014-03-22](https://encode.su/threads/2825-Yappy-(working)-compressor): A segmentation fault was observed with GCC 13.3.0 on a 32-bit ARM (arm-linux-gnueabi) system.
@@ -120,10 +117,6 @@ The results sorted by ratio are available [here](doc/lzbench20_sorted.md).
 | Compressor name         | Compression| Decompress.| Compr. size | Ratio |
 | ---------------         | -----------| -----------| ----------- | ----- |
 | memcpy                  | 16332 MB/s | 16362 MB/s |   211947520 |100.00 |
-| blosclz 2.5.1 -1        |  1287 MB/s |  3996 MB/s |   161171654 | 76.04 |
-| blosclz 2.5.1 -3        |   342 MB/s |  1374 MB/s |   112499167 | 53.08 |
-| blosclz 2.5.1 -6        |   342 MB/s |  1374 MB/s |   112499167 | 53.08 |
-| blosclz 2.5.1 -9        |   305 MB/s |  1280 MB/s |   106433690 | 50.22 |
 | brieflz 1.3.0 -1        |   199 MB/s |   354 MB/s |    81138803 | 38.28 |
 | brieflz 1.3.0 -3        |   132 MB/s |   364 MB/s |    75550736 | 35.65 |
 | brieflz 1.3.0 -6        |  21.0 MB/s |   395 MB/s |    67208420 | 31.71 |
@@ -273,9 +266,6 @@ The results sorted by ratio are available [here](doc/lzbench20_sorted.md).
 | ucl_nrv2e 1.03 -1       |  49.0 MB/s |   297 MB/s |    81195560 | 38.31 |
 | ucl_nrv2e 1.03 -6       |  18.1 MB/s |   342 MB/s |    73302012 | 34.58 |
 | ucl_nrv2e 1.03 -9       |  2.06 MB/s |   372 MB/s |    69645134 | 32.86 |
-| xpack 2016-06-02 -1     |   159 MB/s |   746 MB/s |    71090065 | 33.54 |
-| xpack 2016-06-02 -6     |  44.6 MB/s |   905 MB/s |    62213845 | 29.35 |
-| xpack 2016-06-02 -9     |  16.2 MB/s |   929 MB/s |    61240928 | 28.89 |
 | xz 5.6.3 -0             |  23.6 MB/s |  98.2 MB/s |    62579435 | 29.53 |
 | xz 5.6.3 -3             |  7.52 MB/s |   122 MB/s |    55745125 | 26.30 |
 | xz 5.6.3 -6             |  2.97 MB/s |   127 MB/s |    49195929 | 23.21 |
